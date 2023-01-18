@@ -1,7 +1,7 @@
 ﻿using BulkyBookWeb.Data;
 using BulkyBookWeb.Models;
 using Microsoft.AspNetCore.Mvc;
-
+//test
 namespace BulkyBookWeb.Controllers
 {
     public class CategoryController : Controller
