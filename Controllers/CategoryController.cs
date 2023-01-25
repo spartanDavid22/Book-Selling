@@ -17,6 +17,7 @@ namespace BulkyBookWeb.Controllers
         {
             IEnumerable<Category> categoryList = _db.Categories.ToList();
             return View(categoryList);
+            
         }
         
         //GET
@@ -44,13 +45,13 @@ namespace BulkyBookWeb.Controllers
         //GET
         public IActionResult Edit(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
 
             var categoryById = _db.Categories.Find(id);
-            
+
             if (categoryById == null)
             {
                 return NotFound();
@@ -74,6 +75,45 @@ namespace BulkyBookWeb.Controllers
             }
 
             return View(obj);
+        }
+
+        //Handling Deletes to Categories 
+        //GET
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var categoryById = _db.Categories.Find(id);
+
+            if (categoryById == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoryById);
+        }
+
+        //POST
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePOST(int? id)
+        {
+
+            var obj = _db.Categories.Find(id);
+
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.Remove(obj);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+            
         }
 
     }
